@@ -976,9 +976,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1708265764}
-        m_TargetAssemblyTypeName: SettingMenuu, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1708265768}
+        m_TargetAssemblyTypeName: SettingMenu, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2703,7 +2703,7 @@ AudioSource:
   m_GameObject: {fileID: 1224511036}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1704762764499235149, guid: 03e827585273c41959018a67299c49b6, type: 2}
   m_audioClip: {fileID: 8300000, guid: c4f6ff0c6a383433997eae19a3da1d47, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.421
@@ -4579,9 +4579,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingMenuu, Assembly-CSharp
-        m_MethodName: SetGameVolume
+      - m_Target: {fileID: 1708265768}
+        m_TargetAssemblyTypeName: SettingMenu, Assembly-CSharp
+        m_MethodName: SetVolumeGame
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4732,7 +4732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85eabf017e3ca4a85a3f0e04a427daa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 03e827585273c41959018a67299c49b6, type: 2}
 --- !u!1 &1839313341
 GameObject:
   m_ObjectHideFlags: 0
