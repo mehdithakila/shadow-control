@@ -9,25 +9,25 @@ using TMPro;
 public class LifeBar : MonoBehaviour
 {
     public float vie = 100f;
-    public float maxvie = 100f;
+    public float maxVie = 100f;
 
-    public Image barvie;
-    public TextMeshProUGUI nbrlife;
+    public Image barVie;
+    public TextMeshProUGUI nbrLife;
 
     void Update()
     {
-        barvie.fillAmount = vie / maxvie;
-        nbrlife.text = vie + "%";
-        vie = Mathf.Clamp(vie, 0f, maxvie);
+        barVie.fillAmount = vie / maxVie;
+        nbrLife.text = vie + "%";
+        vie = Mathf.Clamp(vie, 0f, maxVie);
     }
 
-    public void Damage(int damagerecu)
+    public void Damage(int damageRecu)
     {
-        vie -= damagerecu;
+        vie -= damageRecu;
     }
-    public void Heal(int healrecu)
+    public void Heal(int healRecu)
     {
-        vie += healrecu;
+        vie += healRecu;
     }
 }
 
