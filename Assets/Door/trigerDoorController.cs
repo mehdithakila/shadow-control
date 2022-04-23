@@ -23,7 +23,7 @@ public class trigerDoorController : MonoBehaviour
     private void Awake()
     {
         StartRot = transform.rotation.eulerAngles;
-        forward = transform.right;
+        forward = transform.forward;
     }
 
     public void Open(Vector3 userPos)
