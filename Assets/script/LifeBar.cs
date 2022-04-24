@@ -8,7 +8,8 @@ using TMPro;
 
 public class LifeBar : MonoBehaviour
 {
-    public float vie = 100f;
+
+    public float vie = 100;
     public int maxVie = 100;
 
     public Image barVie;
