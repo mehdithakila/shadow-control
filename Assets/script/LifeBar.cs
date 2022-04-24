@@ -9,7 +9,7 @@ using TMPro;
 public class LifeBar : MonoBehaviour
 {
     public float vie = 100f;
-    public float maxVie = 100f;
+    public int maxVie = 100;
 
     public Image barVie;
     public TextMeshProUGUI nbrLife;
