@@ -7,6 +7,7 @@ public class UIGameOver : MonoBehaviour
 
     public static UIGameOver instance;
 
+    
     private void Awake()
     {
         if (instance != null)
@@ -37,6 +38,11 @@ public class UIGameOver : MonoBehaviour
     public void QuitButton()
     {
         Application.Quit();
+    }
+    public void Home(int sceneID)
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(sceneID);
     }
    
 }
