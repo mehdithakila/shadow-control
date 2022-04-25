@@ -16178,7 +16178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2642311626253648332, guid: ba93fc15ee14dbf45b36696cb946115f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.0000002533197
       objectReference: {fileID: 0}
     - target: {fileID: 2642311626253648332, guid: ba93fc15ee14dbf45b36696cb946115f, type: 3}
       propertyPath: m_LocalRotation.z
@@ -16186,7 +16186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2642311626253648332, guid: ba93fc15ee14dbf45b36696cb946115f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2642311626253648332, guid: ba93fc15ee14dbf45b36696cb946115f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -35910,6 +35910,18 @@ PrefabInstance:
     - target: {fileID: 4986932167704522898, guid: a7e3b510f665dc343b5165ba5f8f0faa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186503652079255625, guid: a7e3b510f665dc343b5165ba5f8f0faa, type: 3}
+      propertyPath: Gravity
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186503652079255625, guid: a7e3b510f665dc343b5165ba5f8f0faa, type: 3}
+      propertyPath: JumpHeight
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186503652079255625, guid: a7e3b510f665dc343b5165ba5f8f0faa, type: 3}
+      propertyPath: IliesTi1BATAR
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6186503652079255625, guid: a7e3b510f665dc343b5165ba5f8f0faa, type: 3}
       propertyPath: playerControls.m_SingletonActionBindings.Array.size

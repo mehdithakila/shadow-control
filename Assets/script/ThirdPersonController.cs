@@ -25,7 +25,8 @@ namespace StarterAssets
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
-		public bool SaqrT1BATAR = true;
+		public bool SaqrTi1BATAR = true;
+		public bool IliesTi1BATAR = true;
 
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
@@ -88,6 +89,7 @@ namespace StarterAssets
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
 		private int _animIDAttack;
+		private int _animIDDeath;
 
 
 		private Animator _animator;
@@ -96,6 +98,8 @@ namespace StarterAssets
 		public PlayerInput playerControls;
 		private GameObject _mainCamera;
 		private InputAction Attack;
+		private LifeBar life;
+		private bool Died = false; 
 
 		private const float _threshold = 0.01f;
 
@@ -103,7 +107,7 @@ namespace StarterAssets
 
 		private void Awake()
 		{
-
+			
 			playerControls = new PlayerInput();
 			// get a reference to our main camera
 			if (_mainCamera == null)
@@ -114,6 +118,7 @@ namespace StarterAssets
 
         private void Start()
 		{
+			TryGetComponent(out life);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -128,10 +133,23 @@ namespace StarterAssets
 		private void Update()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
-			
-			JumpAndGravity();
+			if (_hasAnimator)
+			{
+				_animator.SetBool(_animIDDeath, false);
+			}
+
+            if (!Died)
+            {
+				isAlive();
+			}
+
+			if (IliesTi1BATAR)
+            {
+				JumpAndGravity();
+			}
+
 			GroundedCheck();
-            if (SaqrT1BATAR)
+            if (SaqrTi1BATAR)
             {
 				Move();
 			}
@@ -142,6 +160,20 @@ namespace StarterAssets
 			CameraRotation();
 		}
 
+		private void isAlive()
+        {
+			if(life.vie == 0)
+            {
+				SaqrTi1BATAR = false;
+				IliesTi1BATAR = false;
+				Died = true;
+				if (_hasAnimator)
+				{
+					_animator.SetBool(_animIDDeath, true);
+				}
+			}
+        }
+
 		private void AssignAnimationIDs()
 		{
 			_animIDSpeed = Animator.StringToHash("Speed");
@@ -150,6 +182,7 @@ namespace StarterAssets
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
 			_animIDAttack = Animator.StringToHash("Attack");
+			_animIDDeath = Animator.StringToHash("Dead");
 		}
 
 		private void GroundedCheck()
