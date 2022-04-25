@@ -63,8 +63,11 @@ namespace StarterAssets
 		public bool LockCameraPosition = false;
 
 		[Header("Attaque")]
-		public bool attacking;
-		public bool isAttacking;
+		public bool attacked = false;
+		public bool isAttacking = false;
+		public bool waitingForInput = false;
+		public bool gotInput = false;
+		public int combo = 0;
 
 		// cinemachine
 		private float _cinemachineTargetYaw;
@@ -100,17 +103,16 @@ namespace StarterAssets
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
-		private InputAction Attack;
 		private LifeBar life;
 		public pausemenu pause;
-		public bool Died = false; 
+		public bool Died = false;
 
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
 
 		private void Awake()
-		{	
+		{
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -118,7 +120,7 @@ namespace StarterAssets
 			}
 		}
 
-        private void Start()
+		private void Start()
 		{
 			TryGetComponent(out life);
 			_hasAnimator = TryGetComponent(out _animator);
@@ -134,6 +136,24 @@ namespace StarterAssets
 
 		private void Update()
 		{
+			if (waitingForInput)
+			{
+				if (_input.attaque && !gotInput)
+				{
+					combo += 1;
+					gotInput = true;
+				}
+			}
+			else
+			{
+				_animator.SetBool(_animIDAttack, false);
+				_animator.SetBool(_animIDAttack2, false);
+				_animator.SetBool(_animIDAttack3, false);
+				_animator.SetBool(_animIDAttack4, false);
+				_animator.SetBool(_animIDAttack5, false);
+				isAttacking = false;
+			}
+
 			_hasAnimator = TryGetComponent(out _animator);
 			if (_hasAnimator)
 			{
@@ -142,32 +162,46 @@ namespace StarterAssets
 
 			Attaque();
 
-            if (!Died)
-            {
+
+			if (!Died)
+			{
 				isAlive();
 			}
 
-			if (IliesTi1BATAR)
-            {
+			if (IliesTi1BATAR && !isAttacking)
+			{
 				JumpAndGravity();
 			}
 
 			GroundedCheck();
-            if (SaqrTi1BATAR)
-            {
+			if (SaqrTi1BATAR && !isAttacking)
+			{
 				Move();
+			}
+
+            if(!waitingForInput && !gotInput)
+            {
+				combo = 0;
+				isAttacking = false;
 			}
 		}
 
 		private void LateUpdate()
 		{
+
+            if (!waitingForInput)
+            {
+				gotInput = false;
+				isAttacking = false;
+            }
+			
 			CameraRotation();
 		}
 
 		private void isAlive()
-        {
-			if(life.vie == 0)
-            {
+		{
+			if (life.vie == 0)
+			{
 				SaqrTi1BATAR = false;
 				IliesTi1BATAR = false;
 				Died = true;
@@ -177,7 +211,15 @@ namespace StarterAssets
 					_animator.SetBool(_animIDDeath, true);
 				}
 			}
-        }
+		}
+
+		private void WatingForInput()
+		{
+			waitingForInput = !waitingForInput;
+			attacked = !attacked;
+			gotInput = false;
+
+		}
 
 		private void AssignAnimationIDs()
 		{
@@ -224,25 +266,38 @@ namespace StarterAssets
 			CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
 		}
 
-		
-
-		private void Attaque()
-        {
-			if (!_animator.GetBool(_animIDAttack))
+		private void Attackcontinues()
+		{
+			if (combo == 2)
 			{
-				if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
-					_animator.SetBool(_animIDAttack, false);
-				else
-					Debug.Log("playing");
-			}
-			if (_input.attaque)
-            {
+				isAttacking = true;
 				Debug.Log("ataaaaaack");
 				_animator.SetBool(_animIDAttack, true);
+			}
+			else
+			{
+				combo = 0;
+				_animator.SetBool(_animIDAttack, false);
+				_animator.SetBool(_animIDAttack2, false);
+				_animator.SetBool(_animIDAttack3, false);
+				_animator.SetBool(_animIDAttack4, false);
+				_animator.SetBool(_animIDAttack5, false);
+				isAttacking = false;
+			}
 
+		}
+
+		private void Attaque()
+		{
+			if (_input.attaque && combo == 0 && !attacked)
+			{
+				isAttacking = true;
+				combo += 1;
+				Debug.Log("ataaaaaack");
+				_animator.SetBool(_animIDAttack, true);
 			}
 			_input.attaque = false;
-        }
+		}
 
 		private void Move()
 		{
@@ -305,7 +360,7 @@ namespace StarterAssets
 			}
 		}
 
-		
+
 
 		private void JumpAndGravity()
 		{
@@ -390,7 +445,7 @@ namespace StarterAssets
 
 			if (Grounded) Gizmos.color = transparentGreen;
 			else Gizmos.color = transparentRed;
-			
+
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
