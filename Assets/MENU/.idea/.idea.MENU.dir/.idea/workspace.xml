@@ -19,7 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="169db1e3-0eee-4bb6-ad62-47500b857b76" name="Default Changelist" comment="" />
+    <list default="true" id="8e840d04-4bcf-4d38-b00c-6edb4a2d260e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../IA/.idea/.idea.IA.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../IA/.idea/.idea.IA.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../script/ThirdPersonController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../script/ThirdPersonController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,22 +32,20 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../Mirror/Runtime/Empty/Cloud/Player.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/EnnemyAI.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Mirror/Examples/Chat/Scripts/Player.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../enemyAi.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Mirror/Examples/Pong/Scripts/Player.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/../Mirror/Examples/Basic/Scripts/Player.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../script/ThirdPersonController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/UIGameOver.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../DontDestroyOnLoad.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/AnimationScritp.cs" />
-        <option value="$PROJECT_DIR$/EnnemyAI.cs" />
+        <option value="$PROJECT_DIR$/../script/ThirdPersonController.cs" />
+        <option value="$PROJECT_DIR$/UIGameOver.cs" />
+        <option value="$PROJECT_DIR$/../DontDestroyOnLoad.cs" />
       </list>
     </option>
   </component>
-  <component name="ProjectId" id="28F6ZBBSsS0Rv66ujHN4eIvLxqW" />
+  <component name="ProjectId" id="28IV3mbSL2a5i5weWjADvkg2VYu" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -66,25 +67,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="169db1e3-0eee-4bb6-ad62-47500b857b76" name="Default Changelist" comment="" />
-      <created>1650800042593</created>
+      <changelist id="8e840d04-4bcf-4d38-b00c-6edb4a2d260e" name="Default Changelist" comment="" />
+      <created>1650903893402</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1650800042593</updated>
-      <workItem from="1650802114625" duration="221000" />
-      <workItem from="1650804769785" duration="188000" />
-      <workItem from="1650808179808" duration="5178000" />
-      <workItem from="1650815795928" duration="1119000" />
-      <workItem from="1650828781502" duration="235000" />
-      <workItem from="1650829317896" duration="14000" />
-      <workItem from="1650903282394" duration="13000" />
+      <updated>1650903893402</updated>
+      <workItem from="1650903905771" duration="1746000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -96,7 +91,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />

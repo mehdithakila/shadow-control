@@ -171,6 +171,7 @@ namespace StarterAssets
 				SaqrTi1BATAR = false;
 				IliesTi1BATAR = false;
 				Died = true;
+				UIGameOver.instance.OnPlayerDeath();
 				if (_hasAnimator)
 				{
 					_animator.SetBool(_animIDDeath, true);
