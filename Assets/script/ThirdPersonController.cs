@@ -88,27 +88,29 @@ namespace StarterAssets
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
-		private int _animIDAttack;
 		private int _animIDDeath;
+		private int _animIDAttack;
+		private int _animIDAttack2;
+		private int _animIDAttack3;
+		private int _animIDAttack4;
+		private int _animIDAttack5;
 
 
 		private Animator _animator;
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
-		public PlayerInput playerControls;
 		private GameObject _mainCamera;
 		private InputAction Attack;
 		private LifeBar life;
-		private bool Died = false; 
+		public pausemenu pause;
+		public bool Died = false; 
 
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
 
 		private void Awake()
-		{
-			
-			playerControls = new PlayerInput();
+		{	
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -137,6 +139,8 @@ namespace StarterAssets
 			{
 				_animator.SetBool(_animIDDeath, false);
 			}
+
+			Attaque();
 
             if (!Died)
             {
@@ -181,8 +185,12 @@ namespace StarterAssets
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
-			_animIDAttack = Animator.StringToHash("Attack");
 			_animIDDeath = Animator.StringToHash("Dead");
+			_animIDAttack = Animator.StringToHash("Attack");
+			_animIDAttack2 = Animator.StringToHash("Attack2");
+			_animIDAttack3 = Animator.StringToHash("Attack3");
+			_animIDAttack4 = Animator.StringToHash("Attack4");
+			_animIDAttack5 = Animator.StringToHash("Attack5");
 		}
 
 		private void GroundedCheck()
@@ -214,6 +222,26 @@ namespace StarterAssets
 			// Cinemachine will follow this target
 			CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride, _cinemachineTargetYaw, 0.0f);
 		}
+
+		
+
+		private void Attaque()
+        {
+			if (!_animator.GetBool(_animIDAttack))
+			{
+				if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
+					_animator.SetBool(_animIDAttack, false);
+				else
+					Debug.Log("playing");
+			}
+			if (_input.attaque)
+            {
+				Debug.Log("ataaaaaack");
+				_animator.SetBool(_animIDAttack, true);
+
+			}
+			_input.attaque = false;
+        }
 
 		private void Move()
 		{

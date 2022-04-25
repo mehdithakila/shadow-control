@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnnemyAI: MonoBehaviour
+public class EnnemyAI : MonoBehaviour
 {
     public float statrun = 0f;
     private float distance;
@@ -11,55 +11,82 @@ public class EnnemyAI: MonoBehaviour
     public float Range = 2.2f;
     public float AttackTime = 1;
     private float attackTime;
-    public  int DamageAmount;
+    public int DamageAmount;
     private UnityEngine.AI.NavMeshAgent navMesh;
-    public  float Health;
+    public float Health;
     private bool isDead = false;
     public Animation animations;
 
-    void Start() {
+    public Animator QueueTapelle;
+    private int PrivateIntEspaceUnderScore;
+    private int UnAutrePrivateInt;
+
+    void Start()
+    {
+
+        PrivateIntEspaceUnderScore = Animator.StringToHash("Ischassing");
+        UnAutrePrivateInt = Animator.StringToHash("UnTrucOuIlAtteintLePerso");
+
         navMesh = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
         animations = gameObject.GetComponent<Animation>();
         attackTime = Time.time;
     }
 
-    void Update() {
-        if (!isDead) {
+    void Update()
+    {
+        if (!isDead)
+        {
             Target = GameObject.Find("PlayerArmature").transform;
 
             distance = Vector3.Distance(Target.position, transform.position);
 
-            if (distance < VisionDistance && distance > Range) {
+            if (distance < VisionDistance && distance > Range)
+            {
                 Chase();
                 statrun = 3.5f;
-                
+
+            }
+            else if (distance >= VisionDistance)
+            {
+                QueueTapelle.SetBool(PrivateIntEspaceUnderScore, false);
             }
 
-            if (distance < Range) {
+            if (distance < Range)
+            {
                 Attack();
+            }
+            else
+            {
+                QueueTapelle.SetBool(UnAutrePrivateInt, false);
             }
         }
     }
 
-    void Chase() {
-        //animations.Play("Run");
+    void Chase()
+    {
+        Debug.Log("Jte vois sale arabe");
+        QueueTapelle.SetBool(PrivateIntEspaceUnderScore, true);
         navMesh.destination = Target.position;
     }
 
-    void Attack() {
+    void Attack()
+    {
         navMesh.destination = transform.position;
+        QueueTapelle.SetBool(UnAutrePrivateInt, true);
 
-        if (Time.time > attackTime) 
+        if (Time.time > attackTime)
         {
-            //animations.Play("punchrock");
+
             Target.GetComponent<LifeBar>().Damage(DamageAmount);
             Debug.Log(gameObject.name + " dealt " + DamageAmount + " HP to " + Target.gameObject.name);
             attackTime = Time.time + AttackTime;
         }
+
     }
 
     // idle
-    public void ApplyDammage(float DamageAmount) {
+    public void ApplyDammage(float DamageAmount)
+    {
         /*
         if (!isDead) {
             Health -= DamageAmount;
@@ -70,13 +97,16 @@ public class EnnemyAI: MonoBehaviour
             }
         }
         */
-        
+
     }
 
-    public void Kill() {
+    public void Kill()
+    {
         isDead = true;
         //animations.Play("deadrock");
         Destroy(transform.gameObject, 5);
     }
+
+
 
 }

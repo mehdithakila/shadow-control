@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "bd91de78-4277-4520-a5eb-5face0d5bc37",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -244,31 +252,26 @@
                     "action": "Attaque",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "aaaaaaaah",
-            "id": "7798d3b0-b85b-4cac-97f2-261ec2574898",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "c7ad7392-bc0a-4564-bb3f-978440d5c95d",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "dd3b1694-a923-40dc-bb9d-d78f7fdd997e",
-                    "path": "",
+                    "id": "e745eff5-cb4c-4b9c-a3f8-79c9d96e3838",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Gamepad",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e88e049d-b13a-49dd-891e-4e3eae70a3e5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

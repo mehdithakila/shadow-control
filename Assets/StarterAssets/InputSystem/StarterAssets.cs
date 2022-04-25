@@ -59,6 +59,14 @@ namespace PlayerInputs
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""bd91de78-4277-4520-a5eb-5face0d5bc37"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -259,31 +267,26 @@ namespace PlayerInputs
                     ""action"": ""Attaque"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""aaaaaaaah"",
-            ""id"": ""7798d3b0-b85b-4cac-97f2-261ec2574898"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""c7ad7392-bc0a-4564-bb3f-978440d5c95d"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
+                },
                 {
                     ""name"": """",
-                    ""id"": ""dd3b1694-a923-40dc-bb9d-d78f7fdd997e"",
-                    ""path"": """",
+                    ""id"": ""e745eff5-cb4c-4b9c-a3f8-79c9d96e3838"",
+                    ""path"": ""<Gamepad>/start"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e88e049d-b13a-49dd-891e-4e3eae70a3e5"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -347,9 +350,7 @@ namespace PlayerInputs
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Attaque = m_Player.FindAction("Attaque", throwIfNotFound: true);
-            // aaaaaaaah
-            m_aaaaaaaah = asset.FindActionMap("aaaaaaaah", throwIfNotFound: true);
-            m_aaaaaaaah_Newaction = m_aaaaaaaah.FindAction("New action", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -404,6 +405,7 @@ namespace PlayerInputs
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Attaque;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @PlayerInputs m_Wrapper;
@@ -413,6 +415,7 @@ namespace PlayerInputs
             public InputAction @Jump => m_Wrapper.m_Player_Jump;
             public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
             public InputAction @Attaque => m_Wrapper.m_Player_Attaque;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -437,6 +440,9 @@ namespace PlayerInputs
                     @Attaque.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttaque;
                     @Attaque.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttaque;
                     @Attaque.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAttaque;
+                    @Pause.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
+                    @Pause.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPause;
                 }
                 m_Wrapper.m_PlayerActionsCallbackInterface = instance;
                 if (instance != null)
@@ -456,43 +462,13 @@ namespace PlayerInputs
                     @Attaque.started += instance.OnAttaque;
                     @Attaque.performed += instance.OnAttaque;
                     @Attaque.canceled += instance.OnAttaque;
+                    @Pause.started += instance.OnPause;
+                    @Pause.performed += instance.OnPause;
+                    @Pause.canceled += instance.OnPause;
                 }
             }
         }
         public PlayerActions @Player => new PlayerActions(this);
-
-        // aaaaaaaah
-        private readonly InputActionMap m_aaaaaaaah;
-        private IAaaaaaaahActions m_AaaaaaaahActionsCallbackInterface;
-        private readonly InputAction m_aaaaaaaah_Newaction;
-        public struct AaaaaaaahActions
-        {
-            private @PlayerInputs m_Wrapper;
-            public AaaaaaaahActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Newaction => m_Wrapper.m_aaaaaaaah_Newaction;
-            public InputActionMap Get() { return m_Wrapper.m_aaaaaaaah; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(AaaaaaaahActions set) { return set.Get(); }
-            public void SetCallbacks(IAaaaaaaahActions instance)
-            {
-                if (m_Wrapper.m_AaaaaaaahActionsCallbackInterface != null)
-                {
-                    @Newaction.started -= m_Wrapper.m_AaaaaaaahActionsCallbackInterface.OnNewaction;
-                    @Newaction.performed -= m_Wrapper.m_AaaaaaaahActionsCallbackInterface.OnNewaction;
-                    @Newaction.canceled -= m_Wrapper.m_AaaaaaaahActionsCallbackInterface.OnNewaction;
-                }
-                m_Wrapper.m_AaaaaaaahActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @Newaction.started += instance.OnNewaction;
-                    @Newaction.performed += instance.OnNewaction;
-                    @Newaction.canceled += instance.OnNewaction;
-                }
-            }
-        }
-        public AaaaaaaahActions @aaaaaaaah => new AaaaaaaahActions(this);
         private int m_KeyboardMouseSchemeIndex = -1;
         public InputControlScheme KeyboardMouseScheme
         {
@@ -536,10 +512,7 @@ namespace PlayerInputs
             void OnJump(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnAttaque(InputAction.CallbackContext context);
-        }
-        public interface IAaaaaaaahActions
-        {
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
     }
 }
