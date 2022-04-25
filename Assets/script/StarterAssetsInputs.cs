@@ -12,6 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
+		public bool attaque;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -41,6 +42,11 @@ namespace StarterAssets
 			JumpInput(value.isPressed);
 		}
 
+		public void OnAttaque(InputValue value)
+		{
+			AttaqueInput(value.isPressed);
+		}
+
 		public void OnSprint(InputValue value)
 		{
 			SprintInput(value.isPressed);
@@ -58,6 +64,11 @@ namespace StarterAssets
 		public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;
+		}
+
+		public void AttaqueInput(bool newAttaqueState)
+		{
+			attaque = newAttaqueState;
 		}
 
 		public void JumpInput(bool newJumpState)

@@ -25,6 +25,8 @@ namespace StarterAssets
 		[Tooltip("Acceleration and deceleration")]
 		public float SpeedChangeRate = 10.0f;
 
+		public bool SaqrT1BATAR = true;
+
 		[Space(10)]
 		[Tooltip("The height the player can jump")]
 		public float JumpHeight = 1.2f;
@@ -59,6 +61,10 @@ namespace StarterAssets
 		[Tooltip("For locking the camera position on all axis")]
 		public bool LockCameraPosition = false;
 
+		[Header("Attaque")]
+		public bool attacking;
+		public bool isAttacking;
+
 		// cinemachine
 		private float _cinemachineTargetYaw;
 		private float _cinemachineTargetPitch;
@@ -81,11 +87,15 @@ namespace StarterAssets
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
+		private int _animIDAttack;
+
 
 		private Animator _animator;
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
+		public PlayerInput playerControls;
 		private GameObject _mainCamera;
+		private InputAction Attack;
 
 		private const float _threshold = 0.01f;
 
@@ -93,6 +103,8 @@ namespace StarterAssets
 
 		private void Awake()
 		{
+
+			playerControls = new PlayerInput();
 			// get a reference to our main camera
 			if (_mainCamera == null)
 			{
@@ -100,7 +112,7 @@ namespace StarterAssets
 			}
 		}
 
-		private void Start()
+        private void Start()
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
@@ -119,7 +131,10 @@ namespace StarterAssets
 			
 			JumpAndGravity();
 			GroundedCheck();
-			Move();
+            if (SaqrT1BATAR)
+            {
+				Move();
+			}
 		}
 
 		private void LateUpdate()
@@ -134,6 +149,7 @@ namespace StarterAssets
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+			_animIDAttack = Animator.StringToHash("Attack");
 		}
 
 		private void GroundedCheck()
@@ -226,6 +242,8 @@ namespace StarterAssets
 				_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 			}
 		}
+
+		
 
 		private void JumpAndGravity()
 		{
