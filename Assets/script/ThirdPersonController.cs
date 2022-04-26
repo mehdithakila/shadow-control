@@ -205,6 +205,7 @@ namespace StarterAssets
 				SaqrTi1BATAR = false;
 				IliesTi1BATAR = false;
 				Died = true;
+				isAttacking = true;
 				UIGameOver.instance.OnPlayerDeath();
 				if (_hasAnimator)
 				{

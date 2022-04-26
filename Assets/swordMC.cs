@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class swordMC : MonoBehaviour
 {
-
+    public int damage = 20;
+    public int offSet = 2;
     public bool jela;
     public LifeBar Life;
     public BoxCollider Collider;
@@ -20,7 +21,9 @@ public class swordMC : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("je le touche sa mere");
+            EnemyLife enemy = other.transform.GetComponent<EnemyLife>();
+            enemy.Pv -= Random.RandomRange(damage - offSet, damage - offSet);
+            Debug.Log("je le touche sa mere ce sale arabe");
             jela = true;
         }
     }
@@ -29,7 +32,7 @@ public class swordMC : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            Debug.Log("je le touche sa mere pas");
+            Debug.Log("je le touche sa mere pas ce sale arabe");
             jela = true;
         }
     }

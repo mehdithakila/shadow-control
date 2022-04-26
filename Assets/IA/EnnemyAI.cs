@@ -16,6 +16,7 @@ public class EnnemyAI : MonoBehaviour
     public float Health;
     private bool isDead = false;
     public Animation animations;
+    public EnemyLife life;
 
     public Animator QueueTapelle;
     private int PrivateIntEspaceUnderScore;
@@ -34,7 +35,7 @@ public class EnnemyAI : MonoBehaviour
 
     void Update()
     {
-        if (!isDead)
+        if (life.Pv > 0)
         {
             Target = GameObject.Find("PlayerArmature").transform;
 
