@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -64,10 +65,21 @@ namespace StarterAssets
 
 		[Header("Attaque")]
 		public bool attacked = false;
-		public bool isAttacking = false;
 		public bool waitingForInput = false;
 		public bool gotInput = false;
 		public int combo = 0;
+		public GameObject swordMesh;
+		public swordMC sword;
+		public GameObject footMesh;
+		public swordMC foot;
+
+		[Header("Cloathing")]
+		public List<GameObject> everyCloathe;
+		public List<GameObject> shinobiCloathes;
+		public List<GameObject> GSCloathes;
+		public List<GameObject> BrwCloathes;
+
+
 
 		// cinemachine
 		private float _cinemachineTargetYaw;
@@ -97,6 +109,10 @@ namespace StarterAssets
 		private int _animIDAttack3;
 		private int _animIDAttack4;
 		private int _animIDAttack5;
+		private int _animIDIsShi;
+		private int _animIDIsGS;
+		private int _animIDIsBrw;
+		private int _animIDChangeStance;
 
 
 		private Animator _animator;
@@ -104,7 +120,7 @@ namespace StarterAssets
 		private StarterAssetsInputs _input;
 		private GameObject _mainCamera;
 		private LifeBar life;
-		public pausemenu pause;
+		public bool isAttacking = false;
 		public bool Died = false;
 
 		private const float _threshold = 0.01f;
@@ -120,18 +136,99 @@ namespace StarterAssets
 			}
 		}
 
+		private void RUPTUUURE()
+        {
+			_animator.SetBool(_animIDAttack, false);
+			_animator.SetBool(_animIDAttack2, false);
+			_animator.SetBool(_animIDAttack3, false);
+			_animator.SetBool(_animIDAttack4, false);
+			_animator.SetBool(_animIDAttack5, false);
+		}
+
 		private void Start()
 		{
+			
+			
 			TryGetComponent(out life);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
 
 			AssignAnimationIDs();
-
+			swordMesh.SetActive(isAttacking);
+			footMesh.SetActive(isAttacking);
 			// reset our timeouts on start
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
+
+			
+			if (_animator.GetBool(_animIDIsShi))
+			{
+				GoShinobi();
+			}
+			else if (_animator.GetBool(_animIDIsGS))
+			{
+				GoGS();
+			}
+			else if (_animator.GetBool(_animIDIsBrw))
+			{
+				GoBrw();
+			}
+		}
+
+		private void RUPTURECloath()
+        {
+			_animator.SetBool(_animIDIsShi, false);
+			_animator.SetBool(_animIDIsGS, false);
+			_animator.SetBool(_animIDIsBrw, false);
+		}
+
+		private void GoShinobi()
+        {
+			foreach (GameObject cloathe in everyCloathe)
+			{
+				cloathe.SetActive(false);
+			}
+
+			foreach (GameObject cloathe in shinobiCloathes)
+			{
+				cloathe.SetActive(true);
+			}
+
+			RUPTURECloath();
+			_animator.SetBool(_animIDIsShi, true);
+		}
+
+		private void GoGS()
+		{
+			foreach (GameObject cloathe in everyCloathe)
+			{
+				cloathe.SetActive(false);
+			}
+
+			foreach (GameObject cloathe in GSCloathes)
+			{
+				cloathe.SetActive(true);
+			}
+
+			RUPTURECloath();
+			_animator.SetBool(_animIDIsGS, true);
+		}
+
+		private void GoBrw()
+		{
+			foreach (GameObject cloathe in everyCloathe)
+			{
+				cloathe.SetActive(false);
+			}
+
+			foreach (GameObject cloathe in BrwCloathes)
+			{
+				cloathe.SetActive(true);
+			}
+
+			RUPTURECloath();
+			_animator.SetBool(_animIDIsBrw, true);
 		}
 
 		private void Update()
@@ -144,15 +241,7 @@ namespace StarterAssets
 					gotInput = true;
 				}
 			}
-			else
-			{
-				_animator.SetBool(_animIDAttack, false);
-				_animator.SetBool(_animIDAttack2, false);
-				_animator.SetBool(_animIDAttack3, false);
-				_animator.SetBool(_animIDAttack4, false);
-				_animator.SetBool(_animIDAttack5, false);
-				isAttacking = false;
-			}
+			
 
 			_hasAnimator = TryGetComponent(out _animator);
 			if (_hasAnimator)
@@ -168,23 +257,54 @@ namespace StarterAssets
 				isAlive();
 			}
 
-			if (IliesTi1BATAR && !isAttacking)
+			if (IliesTi1BATAR && !attacked)
 			{
 				JumpAndGravity();
 			}
 
 			GroundedCheck();
-			if (SaqrTi1BATAR && !isAttacking)
+			if (SaqrTi1BATAR && !attacked)
 			{
 				Move();
+			}
+
+			if (gotInput)
+            {
+				switch (combo) {
+					case 1:
+						_animator.SetBool(_animIDAttack2, true);
+						break;
+
+					case 2:
+						_animator.SetBool(_animIDAttack3, true);
+						break;
+
+					case 3:
+						_animator.SetBool(_animIDAttack4, true);
+						break;
+
+					case 4:
+						_animator.SetBool(_animIDAttack5, true);
+						break;
+					default:
+						UGOKE();
+						break;
+				}
 			}
 
             if(!waitingForInput && !gotInput)
             {
 				combo = 0;
-				isAttacking = false;
+				attacked = false;
 			}
 		}
+
+		private void UGOKE()
+        {
+			attacked = false;
+			waitingForInput = false;
+			RUPTUUURE();
+        }
 
 		private void LateUpdate()
 		{
@@ -192,7 +312,6 @@ namespace StarterAssets
             if (!waitingForInput)
             {
 				gotInput = false;
-				isAttacking = false;
             }
 			
 			CameraRotation();
@@ -200,17 +319,14 @@ namespace StarterAssets
 
 		private void isAlive()
 		{
-			if (life.vie == 0)
+			if (life.vie <= 0)
 			{
 				SaqrTi1BATAR = false;
 				IliesTi1BATAR = false;
 				Died = true;
-				isAttacking = true;
 				UIGameOver.instance.OnPlayerDeath();
-				if (_hasAnimator)
-				{
-					_animator.SetBool(_animIDDeath, true);
-				}
+				_animator.SetBool(_animIDDeath, true);
+				
 			}
 		}
 
@@ -219,7 +335,9 @@ namespace StarterAssets
 			waitingForInput = !waitingForInput;
 			attacked = !attacked;
 			gotInput = false;
-
+			isAttacking = !isAttacking;
+			swordMesh.SetActive(isAttacking);
+			footMesh.SetActive(isAttacking);
 		}
 
 		private void AssignAnimationIDs()
@@ -235,6 +353,10 @@ namespace StarterAssets
 			_animIDAttack3 = Animator.StringToHash("Attack3");
 			_animIDAttack4 = Animator.StringToHash("Attack4");
 			_animIDAttack5 = Animator.StringToHash("Attack5");
+			_animIDIsShi = Animator.StringToHash("IsShi");
+			_animIDIsGS = Animator.StringToHash("IsGS");
+			_animIDIsBrw = Animator.StringToHash("IsBrw");
+			_animIDChangeStance = Animator.StringToHash("ChangeStance");
 		}
 
 		private void GroundedCheck()
@@ -271,7 +393,6 @@ namespace StarterAssets
 		{
 			if (combo == 2)
 			{
-				isAttacking = true;
 				Debug.Log("ataaaaaack");
 				_animator.SetBool(_animIDAttack, true);
 			}
@@ -283,7 +404,6 @@ namespace StarterAssets
 				_animator.SetBool(_animIDAttack3, false);
 				_animator.SetBool(_animIDAttack4, false);
 				_animator.SetBool(_animIDAttack5, false);
-				isAttacking = false;
 			}
 
 		}
@@ -292,7 +412,6 @@ namespace StarterAssets
 		{
 			if (_input.attaque && combo == 0 && !attacked)
 			{
-				isAttacking = true;
 				combo += 1;
 				Debug.Log("ataaaaaack");
 				_animator.SetBool(_animIDAttack, true);
@@ -360,8 +479,6 @@ namespace StarterAssets
 				_animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
 			}
 		}
-
-
 
 		private void JumpAndGravity()
 		{

@@ -5,31 +5,33 @@ using UnityEngine;
 public class EnnemyAI : MonoBehaviour
 {
     public float statrun = 0f;
-    private float distance;
+    public float distance;
     public Transform Target;
     public float VisionDistance = 10;
     public float Range = 2.2f;
     public float AttackTime = 1;
     private float attackTime;
     public int DamageAmount;
+    public int DamageOffset;
     private UnityEngine.AI.NavMeshAgent navMesh;
     public float Health;
     private bool isDead = false;
-    public Animation animations;
     public EnemyLife life;
 
     public Animator QueueTapelle;
-    private int PrivateIntEspaceUnderScore;
-    private int UnAutrePrivateInt;
+    private int _animIDIsChassing;
+    private int _animIDAttack1;
+    private int _animIDAttack2;
+    private int rnd;
 
     void Start()
     {
 
-        PrivateIntEspaceUnderScore = Animator.StringToHash("Ischassing");
-        UnAutrePrivateInt = Animator.StringToHash("UnTrucOuIlAtteintLePerso");
+        _animIDIsChassing = Animator.StringToHash("Ischassing");
+        _animIDAttack1 = Animator.StringToHash("Attack1");
+        _animIDAttack2 = Animator.StringToHash("Attack2");
 
         navMesh = gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        animations = gameObject.GetComponent<Animation>();
         attackTime = Time.time;
     }
 
@@ -49,7 +51,8 @@ public class EnnemyAI : MonoBehaviour
             }
             else if (distance >= VisionDistance)
             {
-                QueueTapelle.SetBool(PrivateIntEspaceUnderScore, false);
+                QueueTapelle.SetBool(_animIDIsChassing, false);
+                statrun = 0;
             }
 
             if (distance < Range)
@@ -58,31 +61,30 @@ public class EnnemyAI : MonoBehaviour
             }
             else
             {
-                QueueTapelle.SetBool(UnAutrePrivateInt, false);
+                QueueTapelle.SetBool(_animIDAttack1, false);
+                QueueTapelle.SetBool(_animIDAttack2, false);
             }
         }
     }
 
     void Chase()
     {
-        Debug.Log("Jte vois sale arabe");
-        QueueTapelle.SetBool(PrivateIntEspaceUnderScore, true);
+        QueueTapelle.SetBool(_animIDIsChassing, true);
         navMesh.destination = Target.position;
     }
 
     void Attack()
     {
         navMesh.destination = transform.position;
-        QueueTapelle.SetBool(UnAutrePrivateInt, true);
-
-        if (Time.time > attackTime)
+        rnd = Random.Range(1,101);
+        if (rnd <= 70)
         {
-
-            Target.GetComponent<LifeBar>().Damage(DamageAmount);
-            Debug.Log(gameObject.name + " dealt " + DamageAmount + " HP to " + Target.gameObject.name);
-            attackTime = Time.time + AttackTime;
+            QueueTapelle.SetBool(_animIDAttack1, true);
         }
-
+        else
+        {
+            QueueTapelle.SetBool(_animIDAttack1, true);
+        }
     }
 
     // idle

@@ -20,6 +20,10 @@ public class EnemyLife : MonoBehaviour
         AnimIDDied = Animator.StringToHash("Died");
     }
 
+    private void _Died()
+    {
+        Died = true;
+    }
     
     void Update()
     {
@@ -27,7 +31,6 @@ public class EnemyLife : MonoBehaviour
         if (Pv <= 0)
         {
             HAMIDA.SetBool(AnimIDDead, true);
-            Died = true;
             Mahfoud.enabled = false;
         }
     }

@@ -179,7 +179,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: UnTrucOuIlAtteintLePerso
+  - m_Name: Attack
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -219,7 +219,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: UnTrucOuIlAtteintLePerso
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102519054163269376}
@@ -493,7 +493,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400012, guid: 06033faff6ed98c4292f7a342b048834, type: 3}
+  m_Motion: {fileID: 7400014, guid: 06033faff6ed98c4292f7a342b048834, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -641,10 +641,10 @@ AnimatorStateMachine:
     m_Position: {x: 760, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102822569068970584}
-    m_Position: {x: 760, y: 370, z: 0}
+    m_Position: {x: 760, y: 410, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102245437704504784}
-    m_Position: {x: 760, y: 420, z: 0}
+    m_Position: {x: 760, y: 460, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102531912124395218}
     m_Position: {x: 480, y: 110, z: 0}
@@ -669,7 +669,7 @@ AnimatorStateMachine:
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -90, y: -70, z: 0}
   m_EntryPosition: {x: 60, y: 72, z: 0}
-  m_ExitPosition: {x: -320, y: 420, z: 0}
+  m_ExitPosition: {x: -110, y: 290, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102139320303313586}
 --- !u!1101 &4025160819174579142
@@ -816,7 +816,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: UnTrucOuIlAtteintLePerso
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102531912124395218}
