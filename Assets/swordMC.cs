@@ -9,6 +9,7 @@ public class swordMC : MonoBehaviour
     public bool jela;
     public LifeBar Life;
     public BoxCollider Collider;
+    public StarterAssets.ThirdPersonController player;
 
     private void Update()
     {
@@ -24,6 +25,22 @@ public class swordMC : MonoBehaviour
             
             EnemyLife enemy = other.transform.GetComponent<EnemyLife>();
             enemy.Pv -= Random.Range(damage - offSet, damage - offSet);
+            if(enemy.Pv <= 0)
+            {
+                if (enemy.isShi)
+                {
+                    player.GoShinobi();
+                }
+                else if (enemy.isGS)
+                {
+                    player.GoGS();
+                }
+                else if (enemy.isBrw)
+                {
+                    player.GoBrw();
+                }
+                player.ChangeStanceT();
+            }
             Debug.Log("je le touche sa mere");
             jela = true;
         }

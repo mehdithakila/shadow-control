@@ -17,6 +17,7 @@ public class EnnemyAI : MonoBehaviour
     public float Health;
     private bool isDead = false;
     public EnemyLife life;
+    public GameObject attackBox;
 
     public Animator QueueTapelle;
     private int _animIDIsChassing;
@@ -83,30 +84,28 @@ public class EnnemyAI : MonoBehaviour
         }
         else
         {
-            QueueTapelle.SetBool(_animIDAttack1, true);
+            QueueTapelle.SetBool(_animIDAttack2, true);
         }
     }
 
-    // idle
-    public void ApplyDammage(float DamageAmount)
+    private void unAttack()
     {
-        /*
-        if (!isDead) {
-            Health -= DamageAmount;
-            print(gameObject.name + "got hit for " + DamageAmount + " HP");
+        QueueTapelle.SetBool(_animIDAttack2, false);
+        QueueTapelle.SetBool(_animIDAttack1, false);
+        attackBox.SetActive(false);
+    }
 
-            if (Health <= 0) {
-                Kill();
-            }
-        }
-        */
 
+
+    // idle
+    public void ApplyDammage()
+    {
+        attackBox.SetActive(true);
     }
 
     public void Kill()
     {
         isDead = true;
-        //animations.Play("deadrock");
         Destroy(transform.gameObject, 5);
     }
 

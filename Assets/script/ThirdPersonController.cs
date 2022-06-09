@@ -73,11 +73,19 @@ namespace StarterAssets
 		public GameObject footMesh;
 		public swordMC foot;
 
-		[Header("Cloathing")]
+		[Header("Skin")]
 		public List<GameObject> everyCloathe;
 		public List<GameObject> shinobiCloathes;
 		public List<GameObject> GSCloathes;
 		public List<GameObject> BrwCloathes;
+		public bool IsShi;
+		public bool IsGS;
+		public bool IsBrw;
+
+		[Header("Sound")]
+		public GameObject soundStep;
+		public GameObject soundStepParent;
+		public bool isMoving = false;
 
 
 
@@ -137,7 +145,7 @@ namespace StarterAssets
 		}
 
 		private void RUPTUUURE()
-        {
+		{
 			_animator.SetBool(_animIDAttack, false);
 			_animator.SetBool(_animIDAttack2, false);
 			_animator.SetBool(_animIDAttack3, false);
@@ -147,8 +155,6 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			
-			
 			TryGetComponent(out life);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
@@ -161,7 +167,7 @@ namespace StarterAssets
 			_jumpTimeoutDelta = JumpTimeout;
 			_fallTimeoutDelta = FallTimeout;
 
-			
+
 			if (_animator.GetBool(_animIDIsShi))
 			{
 				GoShinobi();
@@ -176,15 +182,31 @@ namespace StarterAssets
 			}
 		}
 
+		public void ChangeStance()
+		{
+			_animator.SetBool(_animIDChangeStance, false);
+			attacked = false;
+			waitingForInput = false;
+			gotInput = false;
+			isAttacking = false;
+			swordMesh.SetActive(isAttacking);
+			footMesh.SetActive(isAttacking);
+		}
+
+		public void ChangeStanceT()
+		{
+			_animator.SetBool(_animIDChangeStance, true);
+		}
+
 		private void RUPTURECloath()
-        {
+		{
 			_animator.SetBool(_animIDIsShi, false);
 			_animator.SetBool(_animIDIsGS, false);
 			_animator.SetBool(_animIDIsBrw, false);
 		}
 
-		private void GoShinobi()
-        {
+		public void GoShinobi()
+		{
 			foreach (GameObject cloathe in everyCloathe)
 			{
 				cloathe.SetActive(false);
@@ -197,9 +219,12 @@ namespace StarterAssets
 
 			RUPTURECloath();
 			_animator.SetBool(_animIDIsShi, true);
+			IsShi = true;
+			IsGS = false;
+			IsBrw = false;
 		}
 
-		private void GoGS()
+		public void GoGS()
 		{
 			foreach (GameObject cloathe in everyCloathe)
 			{
@@ -213,9 +238,12 @@ namespace StarterAssets
 
 			RUPTURECloath();
 			_animator.SetBool(_animIDIsGS, true);
+			IsShi = false;
+			IsGS = true;
+			IsBrw = false;
 		}
 
-		private void GoBrw()
+		public void GoBrw()
 		{
 			foreach (GameObject cloathe in everyCloathe)
 			{
@@ -229,10 +257,35 @@ namespace StarterAssets
 
 			RUPTURECloath();
 			_animator.SetBool(_animIDIsBrw, true);
+			IsShi = false;
+			IsGS = false;
+			IsBrw = true;
+		}
+
+		private void PlaySound()
+		{
+			isMoving = true;
+			soundStep.SetActive(false);
+			soundStep.SetActive(true);
+		}
+
+		private void StopSound()
+		{
+			isMoving = false;
 		}
 
 		private void Update()
 		{
+
+            if (!isMoving)
+            {
+				soundStepParent.SetActive(false);
+			}
+            else
+            {
+				soundStepParent.SetActive(true);
+			}
+
 			if (waitingForInput)
 			{
 				if (_input.attaque && !gotInput)
